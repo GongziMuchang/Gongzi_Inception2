@@ -1,0 +1,113 @@
+﻿@using System.Data;
+@using System.Data.SqlClient;
+@using System.Text.Encodings.Web;
+
+@model ConestogaCarpoolApplication.Models.Post
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<html>
+
+<head>
+    <script type="text/javascript">
+    function myFunction()
+    {
+        var x = @Html.DisplayFor(model => model.Status.PostStatusId);
+
+        if (x == 1)
+        {
+            document.getElementById("confirmButton").style.visibility = 'visible';
+        }
+        else
+        {
+            document.getElementById("confirmButton").style.visibility = "hidden";
+        }
+    }
+
+    function myFunction2()
+    {
+        @{
+            // convert the post's post id to string
+            var writer = new System.IO.StringWriter();
+
+            Html.DisplayFor(model => model.PostId).WriteTo(writer, HtmlEncoder.Default);
+
+            string x = writer.ToString();
+            // converted the post's post id to string
+
+
+            // update the post's status id to 2 
+            SqlConnection con = new SqlConnection("Data Source=(localdb)\\mssqllocaldb;Initial Catalog=ConestogaCarpool;Integrated Security=True");
+
+            con.Open();
+
+            String sqlString = "UPDATE Post SET StatusId = 2 WHERE PostId = " + x;
+
+            SqlCommand cmd = new SqlCommand(sqlString, con);
+
+            cmd.ExecuteNonQuery();
+
+            con.Close();
+            // updated the post's status id to 2 
+        }
+
+        alert("your request has been sent successfully");
+    }
+    </script>
+</head>
+
+<body onload="javascript:myFunction()">
+    <h2>Details</h2>
+    <div>
+        <h4>Post</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Destination)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Destination)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Location)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Location)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Time)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Time)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Driver)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Driver.Email)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Status.PostStatusId)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <button id="confirmButton" onclick="myFunction2()">Confirm</button>
+        <br /><br />
+        <a asp-action="Edit" asp-route-id="@Model.PostId">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+</body>
+
+</html>
