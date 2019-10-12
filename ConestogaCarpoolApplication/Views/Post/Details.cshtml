@@ -12,9 +12,9 @@
 
 <head>
     <script type="text/javascript">
-    function myFunction()
+    function myFunction1()
     {
-        var x = @Html.DisplayFor(model => model.Status.PostStatusId);
+        var x = @Html.DisplayFor(model => model.StatusId);
 
         if (x == 1)
         {
@@ -28,39 +28,16 @@
 
     function myFunction2()
     {
-        @*@{
-            // convert the post's post id to string
-            var writer = new System.IO.StringWriter();
-
-            Html.DisplayFor(model => model.PostId).WriteTo(writer, HtmlEncoder.Default);
-
-            string x = writer.ToString();
-            // converted the post's post id to string
-
-
-            // update the post's status id to 2 
-            SqlConnection con = new SqlConnection("Data Source=(localdb)\\mssqllocaldb;Initial Catalog=ConestogaCarpool;Integrated Security=True");
-
-            con.Open();
-
-            //String sqlString = "UPDATE Post SET StatusId = 2 WHERE PostId = " + x;
-
-            String sqlString = "UPDATE Post SET StatusId = 1";
-
-            SqlCommand cmd = new SqlCommand(sqlString, con);
-
-            cmd.ExecuteNonQuery();
-
-            con.Close();
-            // updated the post's status id to 2 
-        }*@
-
         alert("your request has been sent successfully.");
+
+        var x = @Html.DisplayFor(model => model.PostId);
+
+        window.location.href = "/Home/temp/" + x;
     }
     </script>
 </head>
 
-<body onload="javascript:myFunction()">
+<body onload="javascript:myFunction1()">
     <h2>Details</h2>
     <div>
         <h4>Post</h4>
