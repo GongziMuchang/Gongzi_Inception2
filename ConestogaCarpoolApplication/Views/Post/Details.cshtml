@@ -28,7 +28,7 @@
 
     function myFunction2()
     {
-        @{
+        @*@{
             // convert the post's post id to string
             var writer = new System.IO.StringWriter();
 
@@ -43,7 +43,9 @@
 
             con.Open();
 
-            String sqlString = "UPDATE Post SET StatusId = 2 WHERE PostId = " + x;
+            //String sqlString = "UPDATE Post SET StatusId = 2 WHERE PostId = " + x;
+
+            String sqlString = "UPDATE Post SET StatusId = 1";
 
             SqlCommand cmd = new SqlCommand(sqlString, con);
 
@@ -51,7 +53,7 @@
 
             con.Close();
             // updated the post's status id to 2 
-        }
+        }*@
 
         alert("your request has been sent successfully");
     }
